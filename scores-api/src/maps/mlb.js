@@ -23,17 +23,17 @@ const mapToInternalModel = data => {
 };
 
 function getAtBat(situation) {
-  if(!!situation && !!situation.batter && !!situation.pitcher) {
+  if (!!situation && !!situation.batter && !!situation.pitcher) {
     const pitcher = situation.pitcher.athlete.shortName;
     const batter = `${situation.batter.athlete.shortName}`;
-    return `${pitcher} pitching to ${batter}`
+    return `${pitcher} pitching to ${batter}`;
   }
   return null;
 }
 
 function getLastPlay(situation) {
   if (!!situation) {
-    return situation.lastPlay.text;
+    return !!situation.lastPlay ? situation.lastPlay.text : '';
   }
   return null;
 }
@@ -47,7 +47,7 @@ function getCurrentSituation(situation) {
       onFirst: !!situation.onFirst,
       onSecond: !!situation.onSecond,
       onThird: !!situation.onThird
-    }
+    };
   }
   return null;
 }
@@ -59,10 +59,12 @@ function mapScore(scoreItem) {
     hits: scoreItem.hits,
     errors: scoreItem.errors,
     winner: scoreItem.winner,
-    teamAbbreviation: scoreItem.team.abbreviation,
+    teamAbbreviation: !!scoreItem.team ? scoreItem.team.abbreviation : '',
     team: scoreItem.team.displayName,
     logo: scoreItem.team.logo,
-    record: scoreItem.records.find(r => r.type === 'total').summary
+    record: !!scoreItem.records
+      ? scoreItem.records.find(r => r.type === 'total').summary
+      : []
   };
 }
 
