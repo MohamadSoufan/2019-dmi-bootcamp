@@ -1,9 +1,10 @@
-# 2019-dmi-bootcamp
-2019 Bootcamp Materials
+# 2021-dmi-bootcamp
+2021 Bootcamp Materials
 
 ## Run API
 ```
 > cd scores-api
+> npm i -g @babel/node
 > npm install
 > npm run start
 ```
@@ -16,6 +17,10 @@
 * http://localhost:3000/scores/wwc - Women's World Cup
   - ?date=YYYYMMDD - filter by date
 * http://localhost:3000/scores/wwc/:gameId - Women's World Cup Game Summary
+
+* http://localhost:3000/scores/soccer/epl - EPL
+  - ?date=YYYYMMDD - filter by date
+* http://localhost:3000/scores/soccer/epl/:gameId - EPL Game Summary (box score)
 
 
 ## UI
