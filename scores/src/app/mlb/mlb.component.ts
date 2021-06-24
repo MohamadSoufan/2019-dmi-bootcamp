@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MlbService } from "./mlb.service";
 import { MlbScore } from "./mlb-score.model";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-mlb",
@@ -8,7 +9,7 @@ import { MlbScore } from "./mlb-score.model";
   styleUrls: ["./mlb.component.scss"]
 })
 export class MlbComponent implements OnInit {
-  scores: MlbScore[];
+  scores$: Observable<MlbScore[]> = this.mlbService.getMlbScores();
 
   constructor(private mlbService: MlbService) {}
 
@@ -17,8 +18,8 @@ export class MlbComponent implements OnInit {
   }
 
   getAllScores() {
-    this.mlbService.getMlbScores().subscribe(res => {
-      this.scores = res;
-    });
+    // this.mlbService.getMlbScores().subscribe(res => {
+    //   this.scores = res;
+    // });
   }
 }

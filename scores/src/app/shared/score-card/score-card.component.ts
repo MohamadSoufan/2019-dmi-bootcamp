@@ -23,15 +23,19 @@ export class ScoreCardComponent implements OnInit {
 
   ngOnInit() {}
 
+  handleBoxClicked() {
+    this.buttonClicked.emit();
+  }
+
   get isScheduled() {
-    return this.scoreItem.statusType === 'STATUS_SCHEDULED';
+    return this.scoreItem?.statusType === 'STATUS_SCHEDULED';
   }
 
   get isInProgress() {
-    return this.scoreItem.statusType === 'STATUS_IN_PROGRESS';
+    return this.scoreItem?.statusType === 'STATUS_IN_PROGRESS';
   }
 
   get isFinal() {
-    return this.scoreItem.statusType === 'STATUS_FINAL';
+    return this.scoreItem?.statusType === 'STATUS_FINAL';
   }
 }

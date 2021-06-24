@@ -2,7 +2,7 @@
   <h2 class="title">MLB</h2>
 
   <div class="columns is-multiline">
-    <div *ngFor="let scoreItem of scores" class="column">
+    <div *ngFor="let scoreItem of scores$ | async" class="column">
       <app-mlb-score-card [scoreItem]="scoreItem"></app-mlb-score-card>
     </div>
   </div>
