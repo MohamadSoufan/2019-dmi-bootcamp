@@ -12,19 +12,21 @@ const mapGameToInternalModel = event => {
     awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: getLastPlay(event),
     currentSituation: getCurrentSituation(event),
-    homeBoxScore: mapBoxScore(
-      getBoxScore(event.boxscore.players, event.header, 'home')
-    ),
-    awayBoxScore: mapBoxScore(
-      getBoxScore(event.boxscore.players, event.header, 'away')
-    ),
+    homeBoxScore: !!event.boxscore.players
+      ? mapBoxScore(getBoxScore(event.boxscore.players, event.header, 'home'))
+      : '',
+    awayBoxScore: !!event.boxscore.players
+      ? mapBoxScore(getBoxScore(event.boxscore.players, event.header, 'away'))
+      : '',
     odds: getOdds(event.pickcenter)
   };
 };
 
 function getLastPlay(event) {
   if (!!event.situation) {
-    const lastPlay = event.plays.find(p => p.id === event.situation.lastPlay.id);
+    const lastPlay = event.plays.find(
+      p => p.id === event.situation.lastPlay.id
+    );
     return !!lastPlay ? lastPlay.text : null;
   }
   return null;
@@ -61,7 +63,9 @@ function mapBoxScore(teamBox) {
         starter: playerStats.starter,
         name: playerStats.athlete.displayName,
         number: playerStats.athlete.jersey,
-        position: playerStats.position.abbreviation,
+        position: !!playerStats.position
+          ? playerStats.position.abbreviation
+          : '',
         stats: playerStats.stats,
         notes: !!playerStats.notes ? playerStats.notes[0].text : ''
       }))
@@ -76,7 +80,7 @@ function mapScore(scoreItem) {
     hits: scoreItem.hits,
     errors: scoreItem.errors,
     winner: scoreItem.winner,
-    teamAbbreviation: scoreItem.team.abbreviation,
+    teamAbbreviation: !!scoreItem.team ? scoreItem.team.abbreviation : '',
     team: scoreItem.team.displayName,
     logo: scoreItem.team.logos[0].href,
     lineScores: scoreItem.linescores,
